@@ -4,78 +4,104 @@ const router = express.Router();
 import Cliente from "../models/Cliente.js";
 
 // ROTA CLIENTES
-router.get("/clientes", function (req, res) {
-  Cliente.findAll().then((clientes) => {
-    res.render("clientes", {
-      clientes: clientes,
-    });
-  });
+router.get("/clientes", async (req, res) => {
+    try {
+        const busca = await Cliente.findAll();
+        if (busca) {
+            res.render("clientes", {
+                clientes: busca,
+            });
+        }
+    } catch {
+        (error) => {
+            console.log(error);
+        };
+    }
 });
 
 // ROTA DE CADASTRO DE CLIENTES
-router.post("/clientes/new", (req, res) => {
-  // RECEBENDO OS DADOS DO FORMULÁRIO E GRAVANDO NAS VARIÁVEIS
-  const nome = req.body.nome;
-  const cpf = req.body.cpf;
-  const endereco = req.body.endereco;
-  Cliente.create({
-    nome: nome,
-    cpf: cpf,
-    endereco: endereco,
-  }).then(() => {
-    res.redirect("/clientes");
-  });
+router.post("/clientes/new", async (req, res) => {
+    // RECEBENDO OS DADOS DO FORMULÁRIO E GRAVANDO NAS VARIÁVEIS
+    const { nome, cpf, endereco } = req.body;
+    try {
+        const novo = await Cliente.create({
+            nome: nome,
+            cpf: cpf,
+            endereco: endereco,
+        });
+        if (novo) {
+            res.redirect("/clientes");
+        }
+    } catch {
+        (error) => {
+            console.log(error);
+        };
+    }
 });
 
 // ROTA DE EXCLUSÃO DE CLIENTES
 // ESSA ROTA POSSUI UM PARÂMETRO ID
-router.get("/clientes/delete/:id", (req, res) => {
-  // COLETAR O ID QUE VEIO NA URL
-  const id = req.params.id;
-  // MÉTODO PARA EXCLUIR
-  Cliente.destroy({
-    where: {
-      id: id,
-    },
-  })
-    .then(() => {
-      res.redirect("/clientes");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+router.get("/clientes/delete/:id", async (req, res) => {
+    // COLETAR O ID QUE VEIO NA URL
+    const id = req.params.id;
+    // MÉTODO PARA EXCLUIR
+    try {
+        const deletar = await Cliente.destroy({
+            where: {
+                id: id,
+            },
+        });
+        if (deletar) {
+            res.redirect("/clientes");
+        }
+    } catch {
+        (error) => {
+            console.log(error);
+        };
+    }
 });
 
 // ROTA DE EDIÇÃO DE CLIENTE
-router.get("/clientes/edit/:id", (req, res) => {
-  const id = req.params.id;
-  Cliente.findByPk(id).then((cliente) => {
-    res.render("clienteEdit", {
-      cliente: cliente,
-    });
-  }).catch((error) => {
-    console.log(error)
-  }) 
+router.get("/clientes/edit/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const edit = await Cliente.findByPk(id);
+        if (edit) {
+            res.render("clienteEdit", {
+                cliente: edit,
+            });
+        }
+    } catch {
+        (error) => {
+            console.log(error);
+        };
+    }
 });
 
 // ROTA DE ALTERAÇÃO DE CLIENTE
-router.post("/clientes/update", (req, res) => {
-  const id = req.body.id
-  const nome = req.body.nome
-  const cpf = req.body.cpf
-  const endereco = req.body.endereco
-  Cliente.update(
-    {
-      nome : nome,
-      cpf : cpf,
-      endereco : endereco
-    },
-    {where: {id : id}}
-  ).then(() => {
-    res.redirect("/clientes")
-  }).catch((error) => {
-    console.log(error)
-  })
-})
+router.post("/clientes/update", async (req, res) => {
+    const { id, nome, cpf, endereco } = req.body;
+    try {
+        const update = await Cliente.update(
+            {
+                nome: nome,
+                cpf: cpf,
+                endereco: endereco,
+            },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        if (update) {
+            res.redirect("/clientes");
+        }
+    } catch {
+        (error) => {
+            console.log(error);
+        };
+    }
+});
 
 export default router;

@@ -6,11 +6,11 @@ const Produto = connection.define("produtos", {
 		type: Sequelize.STRING,
 		allowNull: false,
 	},
-	valor: {
+	preco: {
 		type: Sequelize.DECIMAL(10, 2),
 		allowNull: false,
 	},
-	descricao: {
+	categoria: {
 		type: Sequelize.TEXT,
 		allowNull: false,
 	},
