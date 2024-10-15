@@ -11,10 +11,8 @@ router.get("/pedidos", async (req, res) => {
                 pedidos: busca,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -29,10 +27,8 @@ router.post("/pedidos/new", async (req, res) => {
         if (novo) {
             res.redirect("/pedidos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -46,10 +42,8 @@ router.get("/pedidos/edit/:id", async (req, res) => {
                 pedido: edit,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -69,10 +63,8 @@ router.post("/pedidos/update", async (req, res) => {
         if (update) {
             res.redirect("/pedidos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -88,10 +80,8 @@ router.get("/pedidos/delete/:id", async (req, res) => {
         if (del) {
             res.redirect("/pedidos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
