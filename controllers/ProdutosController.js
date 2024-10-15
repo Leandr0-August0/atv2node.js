@@ -11,10 +11,8 @@ router.get("/produtos", async (req, res) => {
                 produtos: busca,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -30,10 +28,8 @@ router.post("/produtos/new", async (req, res) => {
         if (novo) {
             res.redirect("/produtos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -49,10 +45,8 @@ router.get("/produtos/delete/:id", async (req, res) => {
         if (del) {
             res.redirect("/produtos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -66,10 +60,8 @@ router.get("/produtos/edit/:id", async (req, res) => {
                 produto: edit,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -91,10 +83,8 @@ router.post("/produtos/update", async (req, res) => {
         if (update) {
             res.redirect("/produtos");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
