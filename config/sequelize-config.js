@@ -5,7 +5,7 @@ const connection = new Sequelize({
   dialect: "mysql",
   host: "localhost",
   username: "root",
-  password: "", //Alunos deixem a senha em branco
+  password: "",
   // Comente essa linha na primeira execução da aplicação
   database: 'loja',
   timezone: "-03:00",
