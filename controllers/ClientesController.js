@@ -12,10 +12,8 @@ router.get("/clientes", async (req, res) => {
                 clientes: busca,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -32,10 +30,8 @@ router.post("/clientes/new", async (req, res) => {
         if (novo) {
             res.redirect("/clientes");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -54,10 +50,8 @@ router.get("/clientes/delete/:id", async (req, res) => {
         if (deletar) {
             res.redirect("/clientes");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -71,10 +65,8 @@ router.get("/clientes/edit/:id", async (req, res) => {
                 cliente: edit,
             });
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
@@ -97,10 +89,8 @@ router.post("/clientes/update", async (req, res) => {
         if (update) {
             res.redirect("/clientes");
         }
-    } catch {
-        (error) => {
+    } catch (error){
             console.log(error);
-        };
     }
 });
 
