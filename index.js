@@ -40,8 +40,8 @@ app.use("/", ProdutosController);
 app.use("/", PedidosController);
 
 // ROTA PRINCIPAL
-app.get("/", function (req, res) {
-  res.render("index");
+app.get("/", (req, res) => {
+    res.render("index");
 });
 
 // INICIA O SERVIDOR NA PORTA 8080
