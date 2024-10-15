@@ -12,22 +12,23 @@ import PedidosController from "./controllers/PedidosController.js";
 // Permite capturar dados vindo de formulários
 app.use(express.urlencoded({extended: false}))
 
-// Realizando a conexão com o banco de dados
-connection
-  .authenticate()
-  .then(() => {
-    console.log("Conexão com o banco de dados feita com sucesso!");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+try {
+    // ESTABELECE CONEXÃO COM O BANCO DE DADOS
+    const conexao = await Connection.authenticate();
+    if (conexao) {
+        console.log("Conexão estabelecida com sucesso!");
+    }
 
-// Criando o banco de dados se ele não existir
-connection.query(`CREATE DATABASE IF NOT EXISTS loja;`).then(() => {
-  console.log("O banco de dados está criado.");
-}).catch((error) => {
-    console.log(error)
-});
+    // CRIA O BANCO DE DADOS
+    const query = await Connection.query(
+        `create database if not exists estudoNode;`
+    );
+    if (query) {
+        console.log("Banco de dados criado com sucesso!");
+    }
+} catch (error) {
+    console.log(error);
+}
 
 // Define o EJS como Renderizador de páginas
 app.set("view engine", "ejs");
@@ -45,10 +46,14 @@ app.get("/", (req, res) => {
 });
 
 // INICIA O SERVIDOR NA PORTA 8080
-app.listen(8080, function (erro) {
-  if (erro) {
-    console.log("Ocorreu um erro!");
-  } else {
-    console.log("Servidor iniciado com sucesso!");
-  }
-});
+const port = 8080;
+try {
+    const link = app.listen(port);
+    if (link) {
+        console.log(
+            `Servidor iniciado com sucesso em: http://localhost:${port}`
+        );
+    }
+} catch (error) {
+    console.log(error);
+}
